@@ -1,0 +1,29 @@
+
+.header{
+    background: #20222b;
+    margin-bottom: 5rem;
+    padding: 1.6rem 0;
+    color:white;
+}
+
+//BEM notation
+.header__title{
+
+    font-size: 3.2rem;
+    margin: 0;
+}
+
+.header__subtitle{
+    color:#a5afd7;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin:0;
+}
+
+
+.box{
+    background-color: red;
+    width: 20rem;
+    height:20rem;
+    
+}

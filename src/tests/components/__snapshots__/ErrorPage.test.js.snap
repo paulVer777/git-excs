@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render error page correctly 1`] = `
+<div>
+  Error Page 
+  <Link
+    replace={false}
+    to="/"
+  >
+    Home
+  </Link>
+</div>
+`;

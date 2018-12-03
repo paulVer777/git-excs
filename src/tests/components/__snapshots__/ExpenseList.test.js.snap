@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render expense list with props 1`] = `
+<div>
+  <ListItem
+    amount={155}
+    createdAt={0}
+    description="gum"
+    id={1}
+    key="1"
+    note=""
+  />
+  <ListItem
+    amount={15500}
+    createdAt={-864000000}
+    description="rent"
+    id={2}
+    key="2"
+    note=""
+  />
+  <ListItem
+    amount={5000}
+    createdAt={1728000000}
+    description="shopping"
+    id={3}
+    key="3"
+    note=""
+  />
+</div>
+`;
+
+exports[`should render p if there is no items in the array 1`] = `
+<div>
+  <p>
+    You dont have any expenses yet
+  </p>
+</div>
+`;
