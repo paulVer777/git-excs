@@ -13,14 +13,6 @@ import {Provider} from 'react-redux'
 
 const store = configureStore();
  
-console.log(store)
-
-
-store.dispatch(addExpense({description:'gas bill', note:'bill', amount:30000}))
-store.dispatch(addExpense({description:'water bill', note:'bill', amount:500}))
-store.dispatch(addExpense({description:'rent', note:'bill', amount:500,createdAt:1000}))
-
-
 
 const jsx = (
     <Provider store = {store} > 
