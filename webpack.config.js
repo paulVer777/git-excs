@@ -9,56 +9,91 @@
 //  /home/p/Nauka/ReactwithAndy/indecision app 
 
 const path = require('path') //module for paths manipulations
-
 // path.join(__dirname,'public') - function that concatenate paths  
-
 // the basic webpack config includes the module bundler
 //that allows us to break up our apps into multiple files (es6 modules supported)
 
-module.exports = {
-entry:'./src/app.js',
-output:{
-    path:path.join(__dirname,'public'), // where the output should be  placed, it need to be absolute path
-    filename:'bundle.js' // name of a output file
-},
-//Setting the loader
-//Loader - way to define how a file gets transformed when webpack uses it
-// for example any time webpack sees app.js file we can do something with that file like for exapmle 
-// run it through babel ( converting es6 to es5 and jsx to regular react create elements calls in order to browsers understands it)
-
-module:{
-    rules:[{ //array of rules, for now we just want the babel running, later we will add more like sass etc
-        loader:'babel-loader', // name of loader
-        test: /\.js$/, // what files do we actually want to run this loader on (we want run only on js files ) | run babel every time webpack see js file we wrote
-        exclude: /node_modules/ //excludes a given set of files that we dont want to run loader on
-    },
-    //whenever you see a js file that is not located on node modules go ahead and run it through babel
-    // so that includes our entry file and any files that app js imports
+const ExtractTextPlugin = require('extract-text-webpack-plugin') // we need it to extract css files out of bundle js
 
 
-    //CSS - 
-    {
-        // ?- it makes 's' letter optional so now webpack can handle css and scss (needed to normalize css)
-      test:/\.s?css$/, // target all files that ends ($) with .css . Every time webpack meet the scss file its going to load that file (css loader),compile to sass ()
-       //and dump its content int a DOM in a style tag (style-loader)
-      use:[ // use alows us to provide us arrays of loaders
-        'style-loader',
-        'css-loader',
-        'sass-loader' // behind scenes sass loader uses node-sass to convert file to css
+
+
+
+
+// we switch module.exports bo be a function, this way it can recognize if we run production or dev command and choose the right code to use.
+
+module.exports = (env) => {
+
+    const isProduction = env === 'production'
+    const CSSExtract = new ExtractTextPlugin('styles.css') // in arguments we provide the name we want the extracted file have 
+
+    return {
+        entry:'./src/app.js',
+        output:{
+            path:path.join(__dirname,'public'), // where the output should be  placed, it need to be absolute path
+            filename:'bundle.js' // name of a output file
+        },
+        //Setting the loader
+        //Loader - way to define how a file gets transformed when webpack uses it
+        // for example any time webpack sees app.js file we can do something with that file like for exapmle 
+        // run it through babel ( converting es6 to es5 and jsx to regular react create elements calls in order to browsers understands it)
+        
+        module:{
+            rules:[{ //array of rules, for now we just want the babel running, later we will add more like sass etc
+                loader:'babel-loader', // name of loader
+                test: /\.js$/, // what files do we actually want to run this loader on (we want run only on js files ) | run babel every time webpack see js file we wrote
+                exclude: /node_modules/ //excludes a given set of files that we dont want to run loader on
+            },
+            //whenever you see a js file that is not located on node modules go ahead and run it through babel
+            // so that includes our entry file and any files that app js imports
+        
+        
+            //CSS - 
+            {
+                // ?- it makes 's' letter optional so now webpack can handle css and scss (needed to normalize css)
+              test:/\.s?css$/, // target all files that ends ($) with .css . Every time webpack meet the scss file its going to load that file (css loader),compile to sass ()
+               //and dump its content int a DOM in a style tag (style-loader)
+              use: CSSExtract.extract({ //part of extracting css into their own file
+                  use:[
+                      {
+                        loader:'css-loader',
+                        options: {
+                            sourceMap:true
+                        }
+
+                      },
+                      {
+                          loader:'sass-loader',
+                          options: {
+                              sourceMap:true
+                          }
+                      }
+                  ]
+              })  // use alows us to provide us arrays of loaders
+                
+                
+                // behind scenes sass loader uses node-sass to convert file to css
+                
+               //steps: 
+               //1. get the code
+               //2. convert scss to css
+               //3. get it shwoing up in the browser by dumping it into a style tag(head)  
+            }
         ]
-       //steps: 
-       //1. get the code
-       //2. convert scss to css
-       //3. get it shwoing up in the browser by dumping it into a style tag(head)  
-    }
-]
-},
-devtool:'cheap-module-eval-source-map', //figures out where the original line was, makes debuggin way faster ( after transpilling process  )
+        },
+        plugins:[ // part of extracting css into their own file
+            CSSExtract
+        ],
+        devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map', //figures out where the original line was, makes debuggin way faster ( after transpilling process  )
+        //if we run command for prod mode source map will be used (less size)
+        devServer:{
+        contentBase:path.join(__dirname,'public'), // absolute path to public folder where index html lives, 
+        historyApiFallback:true // this tells the dev server that we are going to handle routing via our client side code
+        // 404 will fallback to index.html
+        }}
+}
 
-devServer:{
-contentBase:path.join(__dirname,'public'), // absolute path to public folder where index html lives, 
-historyApiFallback:true // this tells the dev server that we are going to handle routing via our client side code
-// 404 will fallback to index.html
-}}
+
+
 
 
