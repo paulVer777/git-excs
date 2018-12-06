@@ -9,11 +9,11 @@ exports[`Should render Expense List Item 1`] = `
     gum
   </Link>
   <p>
-    155
+    $155.00
      
   </p>
   <p>
-    0
+    1st,January,1970
      
   </p>
   <hr />

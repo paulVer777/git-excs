@@ -20,50 +20,6 @@ const jsx = (
     </Provider>
 )
 
-
-console.log('testing')
-
-const mix = []
-const usedNumbs = []
-
-
-
-while(usedNumbs.length < 7){
-
-const numb = Math.floor( Math.random() * 8 )  
-
-if(!usedNumbs.includes(numb)){
-    mix[numb] = 's'
-    usedNumbs.push(numb)
-}
-
-}
-
-
-
-
-console.log(usedNumbs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ReactDOM.render( jsx, document.querySelector('#app'))
 
 
