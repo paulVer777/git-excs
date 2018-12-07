@@ -20,6 +20,10 @@ const jsx = (
     </Provider>
 )
 
+const score = [].reduce((sum,value) => sum + value,0)
+console.log(score)
+
+
 ReactDOM.render( jsx, document.querySelector('#app'))
 
 

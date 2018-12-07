@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render ExpensiveSummaryComponent correctly 1`] = `
+<div>
+  <p>
+    Viewing undefined expenses with total amount of undefined
+  </p>
+</div>
+`;
+
+exports[`Should render ExpensiveSummaryComponent with provided data correctly 1`] = `
+<div>
+  <p>
+    Viewing 1 expense with total amount of 3000
+  </p>
+</div>
+`;
